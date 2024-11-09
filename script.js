@@ -1,3 +1,5 @@
+ENDPOINT = "https://1096-38-253-144-148.ngrok-free.app"
+
 document.getElementById("uploadForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -24,7 +26,7 @@ document.getElementById("uploadForm").addEventListener("submit", async (event) =
 
     try {
         // Realizar la solicitud al backend
-        const response = await fetch("http://127.0.0.1:8000/upload_files/", {
+        const response = await fetch(ENDPOINT+"/upload_files/", {
             method: "POST",
             body: formData
         });
@@ -56,7 +58,7 @@ document.getElementById("deleteButton").addEventListener("click", async () => {
     loadingSpinner.style.display = "block";
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/delete_files/", {
+        const response = await fetch(ENDPOINT+"/delete_files/", {
             method: "DELETE",
         });
 
@@ -128,7 +130,7 @@ document.getElementById("processButton").addEventListener("click", async () => {
 
     try {
         // Inicia el procesamiento enviando la solicitud POST
-        const response = await fetch("http://127.0.0.1:8000/procesar/", {
+        const response = await fetch(ENDPOINT+"/procesar/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ requisitos: requisitosInput })
@@ -145,7 +147,7 @@ document.getElementById("processButton").addEventListener("click", async () => {
         // Realiza llamadas periódicas al endpoint de estado
         const intervalId = setInterval(async () => {
             try {
-                const estadoResponse = await fetch("http://127.0.0.1:8000/estado_proceso/");
+                const estadoResponse = await fetch(ENDPOINT+"/estado_proceso/");
                 const estadoData = await estadoResponse.json();
 
                 // Verifica si el proceso ha terminado
@@ -179,7 +181,7 @@ document.getElementById("showResultsButton").addEventListener("click", async () 
     resultadosContainer.innerHTML = ""; // Limpiar resultados anteriores
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/mostrar_resultados/");
+        const response = await fetch(ENDPOINT+"/mostrar_resultados/");
         const data = await response.json();
 
         console.log(data); // Debug: revisar la estructura de la respuesta
